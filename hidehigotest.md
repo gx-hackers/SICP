@@ -1,4 +1,4 @@
-* hidehigotest
 * pull-reqのテストだよー
+* merge前に修正するよ
 * さらに練習。のために追記
 * おほほほ
