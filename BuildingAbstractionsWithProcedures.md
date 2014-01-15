@@ -1,35 +1,34 @@
 # そういえば実は前回やってなかった
 ## Clojure
-user=> (print "HelloWorld!")
-HelloWorld!nil
+user=> (print "HelloWorld!")  
+HelloWorld!nil  
 
-user=> (println "Hello World")
-Hello World
-nil
+user=> (println "Hello World")  
+Hello World  
+nil  
 ## Gauche
-gosh> (print "HelloWorld!")
-HelloWorld!
-# <undef>
+gosh> (print "HelloWorld!")  
+HelloWorld!  
 
 # 前回の復習から基本
-* 最小単位はアトム
-123 => 123
-* Lispでは演算子が最初に来る（前置記法）そしてこれはS式という
-(+ 1 2) => 3
-* ネストの深さは無限（処理系の実装依存？）
-(+ (+ 1 2) (* 2 3)) => 9
-* 変数の束縛
-gosh> (define a 1)
-a
-gosh> a
-1
-gosh> (define b 2)
-b
-gosh> (+ a b)
-3
-* 再帰がややこしくなったら'木構造のため込み'(図1.1)
-gosh> (* (* 2 3) (* 4 5))
-120
+* 最小単位はアトム  
+123 => 123  
+* Lispでは演算子が最初に来る（前置記法）そしてこれはS式という  
+(+ 1 2) => 3  
+* ネストの深さは無限（処理系の実装依存？）  
+(+ (+ 1 2) (* 2 3)) => 9  
+* 変数の束縛  
+gosh> (define a 1)  
+a  
+gosh> a  
+1  
+gosh> (define b 2)  
+b  
+gosh> (+ a b)  
+3  
+* 再帰がややこしくなったら'木構造のため込み'(図1.1)  
+gosh> (* (* 2 3) (* 4 5))  
+120  
 * 数字列は数として、
  * 123(いち・に・さん)を評価すると123(ひゃくにじゅうさん)
 * 基本演算子は対応する演算の機械命令として、
@@ -46,10 +45,10 @@ gosh> (* (* 2 3) (* 4 5))
 * (exit)とか
 
 # 1.1.4 合成手続き
-gosh> (square 3)
-9
-gosh> (square (square 3))
-81
+gosh> (square 3)  
+9  
+gosh> (square (square 3))  
+81  
 
 こういうのを組み合わせて様々な処理を作っていく
 
@@ -66,15 +65,15 @@ gosh> (square (square 3))
 # 1.1.6 条件式と述語
 ## 絶対値を返したい
 ### ifを使う方法(特殊形式)
-(define (abs x)
- (if (< x 0)
- (- x)  ; 変数xに-を適用している
-     x))
-     ### condを使う方法(特殊形式)
-     (define (abs x)
-     (cond ((< x 0)
-     (- x)
-     (else x)))
+(define (abs x)  
+ (if (< x 0)  
+ (- x)  ; 変数xに-を適用している  
+     x))  
+### condを使う方法(特殊形式)  
+(define (abs x)  
+     (cond ((< x 0)  
+     (- x)  
+     (else x)))  
 
 ### 論理合成演算子も色々ある
 * 基本的述語
@@ -91,17 +90,17 @@ gosh> (square (square 3))
 # 問題コーナー
 ## 問題1.4
 * (- 1)で正の数1に演算子-を適用して負数を表している
-* 条件分岐で演算子を分ける、前置記法独自の書き方
-gosh> (define (a-plus-abs-b a b)
-( (if (> b 0)
-\+
--)
-a b))
+* 条件分岐で演算子を分ける、前置記法独自の書き方  
+gosh> (define (a-plus-abs-b a b)  
+( (if (> b 0)  
+\+  
+-)  
+a b))  
 
-gosh> (a-plus-abs-b 1 2)
-3
-gosh> (a-plus-abs-b 1 -2)
-3
+gosh> (a-plus-abs-b 1 2)  
+3  
+gosh> (a-plus-abs-b 1 -2)  
+3  
 
 ## 問題1.5
-みんなでかんがえよう 
+みんなでかんがえよう  
