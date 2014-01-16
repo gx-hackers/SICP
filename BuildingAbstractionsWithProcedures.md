@@ -45,7 +45,7 @@ gosh> (* (* 2 3) (* 4 5))
 * (exit)は引数を取らない関数＝通常の手続き
 
 # 1.1.4 合成手続き
-gosh> (define (square x) (* x x))
+gosh> (define (square x) (* x x))  
 square  
 gosh> (square 3)  
 9  
@@ -132,12 +132,14 @@ by 和氣さん
 ## 問題1.4
 * (- 1)で正の数1に演算子-を適用して負数を表している
 * 条件分岐で演算子を分ける、前置記法独自の書き方  
-gosh> (define (a-plus-abs-b a b)  
-( (if (> b 0)  
-\+  
--)  
-a b))  
 
+```Scheme
+(define (a-plus-abs-b a b)  
+( (if (> b 0)  
+    +  
+    -)  
+  a b))  
+```
 gosh> (a-plus-abs-b 1 2)  
 3  
 gosh> (a-plus-abs-b 1 -2)  
