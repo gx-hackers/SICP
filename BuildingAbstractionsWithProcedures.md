@@ -65,16 +65,19 @@ gosh> (square (square 3))
 # 1.1.6 条件式と述語
 ## 絶対値を返したい
 ### ifを使う方法(特殊形式)
+```Scheme
 (define (abs x)  
- (if (< x 0)  
- (- x)  ; 変数xに-を適用している  
-     x))  
+  (if (< x 0)  
+    (- x)  ; 変数xに-を適用している  
+    x))  
+```
 ### condを使う方法(特殊形式)  
+```Scheme
 (define (abs x)  
-     (cond ((< x 0)  
-     (- x)  
-     (else x)))  
-
+  (cond ((< x 0)  
+    (- x)  
+    (else x)))  
+```
 ### 論理合成演算子も色々ある
 * 基本的述語
  * <
