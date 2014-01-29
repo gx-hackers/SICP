@@ -1,5 +1,4 @@
-SICP
-====
+# SICP
 
 SICP Reading
 
