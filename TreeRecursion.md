@@ -133,11 +133,23 @@
 問題 1.11
 > n<3に対してf(n)=n, n ≥ 3に対してf(n)=f(n - 1) + 2 f(n - 2) + 3 f(n - 3)なる規則で定義する関数fがある. 再帰的プロセスの方法でf を計算する手続きを書け. 反復的プロセスの方法でfを計算する手続きを書け.
 
+[https://gist.github.com/kazuph/8971952](https://gist.github.com/kazuph/8971952)
+
 問題 1.12
 
 > 次の数のパターンを{\bf Pascal}三角形(Pascal's triangle)という.
 三角形の辺上の数はすべて1, 三角形の内部の数はその上の二つの数の和である.4 再帰的プロセスの方法でPascal三角形の要素を計算する手続きを書け.
 
+![http://gyazo.com/7b7bb22da2fafba4375c88e5bcffe3f1.png](http://gyazo.com/7b7bb22da2fafba4375c88e5bcffe3f1.png)
+[http://d.hatena.ne.jp/tmurata/20090330/1238370771](http://d.hatena.ne.jp/tmurata/20090330/1238370771)
+[http://community.schemewiki.org/?sicp-ex-1.12](http://community.schemewiki.org/?sicp-ex-1.12)
+[http://sh1.2-d.jp/b/2007-07-14-02-03.html](http://sh1.2-d.jp/b/2007-07-14-02-03.html)
+
 問題 1.13
 
 > φ= (1+)/2としてFib}(n)がφn /に最も近い整数であることを証明せよ. ヒント: ψ= (1-)/2とする. 帰納法とFibonacci数の定義(1.2.2節参照)を用い, Fib}(n)=(φn-ψn)/を証明せよ.
+
+う、証明、、、やんなくてもいいですよね、、、。
+
+[http://d.hatena.ne.jp/yinkyweb/20100419/1271633999](http://d.hatena.ne.jp/yinkyweb/20100419/1271633999)
+[http://ongaeshi.hatenablog.com/entry/20080223/1203755918](http://ongaeshi.hatenablog.com/entry/20080223/1203755918)
