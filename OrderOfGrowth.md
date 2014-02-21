@@ -43,6 +43,9 @@ R(n) = Theta(f(n)) である。
 - 不変量
 - 教科書を読もう!
 
+## 和氣さん追記
+https://github.com/gx-hackers/SICP/pull/7#discussion-diff-9938552
+
 # 1.2.5 最大公約数
 
 - アルゴリズム
