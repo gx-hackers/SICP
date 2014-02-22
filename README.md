@@ -24,4 +24,4 @@ SICP Reading
 
 ## #5 2014年2月21日(水)
 ### 1.2.3 ~ 1.3.4
-merge待ち
+[https://github.com/gx-hackers/SICP/blob/master/OrderOfGrowth.md](https://github.com/gx-hackers/SICP/blob/master/OrderOfGrowth.md)
