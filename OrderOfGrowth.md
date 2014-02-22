@@ -57,21 +57,21 @@ https://github.com/gx-hackers/SICP/pull/7#discussion-diff-9938552
 # 1.3.1 引数としての手続き
 以下の3つの関数はなにか似ている
 
-```sum-integers
+```Scheme
 (define (sum-integers a b)
   (if (> a b)
     0
     (+ a (sum-integers (+ a 1) b))))
 ```
 
-```sum-cubes
+```Scheme
 (define (sum-cubes a b)
   (if (> a b)
     0
     (+ (cube a) (sum-cubes (+ a 1) b))))
 ```
 
-```pi-sum
+```Scheme
 (define (pi-sum a b)
   (if (> a b)
     0
@@ -80,7 +80,7 @@ https://github.com/gx-hackers/SICP/pull/7#discussion-diff-9938552
 
 似ているので抽象化できる
 
-```abstract
+```Scheme
 (define (<name> a b)
   (if (> a b)
     0
@@ -89,8 +89,7 @@ https://github.com/gx-hackers/SICP/pull/7#discussion-diff-9938552
 ```
 
 ちゃんと書くとこうなる
-
-```abstraction
+```Scheme
 (define (sum term a next b)
   (if (> a b)
     0
@@ -100,21 +99,21 @@ https://github.com/gx-hackers/SICP/pull/7#discussion-diff-9938552
 ここで、aとbは上限・下限の数値、termとnextは手続き。  
 この抽象化を使うと、最初の3関数はいい感じに書ける。
 
-```sum-cubes
+```Scheme
 (define (inc n) (+ n 1))
 (define (sum-cubes a b)
   (sum sube a inc b))
 (sum-cubes 1 10) ; 3025
 ```
 
-```sum-integers
+```Scheme
 (define (identity x) x)
 (define (sum-integers a b)
   (sum identitiy a inc b))
 (sum-integers 1 10) ; 55
 ```
 
-```pi-sum
+```Scheme
 (define (pi-sum a b)
   (define (pi-term x)
     (/ 1.0 (* x (+ x 2))))
@@ -144,7 +143,7 @@ https://github.com/gx-hackers/SICP/pull/7#discussion-diff-9938552
 lambdaの糖衣構文。  
 RSpecだとletは遅延評価なのでビクッとなる。
 
-```format
+```Scheme
 (let ((<var1> <exp1>)
       (<var2> <exp2>)
       ...
@@ -153,7 +152,7 @@ RSpecだとletは遅延評価なのでビクッとなる。
 
 実際の使用例は以下。
 
-```
+```Scheme
 (define (f x y)
   (let ((a (+ 1 (* x y)))
         (b (- 1 y)))
@@ -164,7 +163,7 @@ RSpecだとletは遅延評価なのでビクッとなる。
 
 これをlambdaで書くと  
 
-```
+```Scheme
 (define (f x y)
   ((lambda (a b)
       (+ (* x (square a))
