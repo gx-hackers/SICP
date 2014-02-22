@@ -44,7 +44,29 @@ R(n) = Theta(f(n)) である。
 - 教科書を読もう!
 
 ## 和氣さん追記
-https://github.com/gx-hackers/SICP/pull/7#discussion-diff-9938552
+https://github.com/gx-hackers/SICP/pull/7#discussion-diff-9938552  
+Clojure例  
+```Clojure
+; 線形再帰的
+(defn expt [b n]
+  (if (= n 0)
+    1
+    (* b (expt b (- n 1)))))
+; 線形反復的
+(defn expt-iter [b n]
+  (defn iter [b counter product]
+    (if (= counter 0)
+      product
+      (iter b
+            (dec counter)
+            (* b product))))
+  (iter b n 1))
+; 逐次平方
+(defn fast-expt [b n]
+  (cond (= n 0) 1
+        (even? n) (square (fast-expt b (/ n 2)))
+        :else (* b (fast-expt b (- n 1)))))
+```
 
 # 1.2.5 最大公約数
 
@@ -103,6 +125,7 @@ https://github.com/gx-hackers/SICP/pull/7#discussion-diff-9938552
 (define (inc n) (+ n 1))
 (define (sum-cubes a b)
   (sum sube a inc b))
+  
 (sum-cubes 1 10) ; 3025
 ```
 
@@ -110,6 +133,7 @@ https://github.com/gx-hackers/SICP/pull/7#discussion-diff-9938552
 (define (identity x) x)
 (define (sum-integers a b)
   (sum identitiy a inc b))
+  
 (sum-integers 1 10) ; 55
 ```
 
@@ -120,6 +144,7 @@ https://github.com/gx-hackers/SICP/pull/7#discussion-diff-9938552
 (define (pi-next x)
   (+ x 4))
 (sum pi-term a pi-next b)
+
 (* 8 (pi-sum 1 1000)) ; 3.139...
 ```
 
@@ -141,7 +166,6 @@ https://github.com/gx-hackers/SICP/pull/7#discussion-diff-9938552
 
 ## 無名変数let
 lambdaの糖衣構文。  
-RSpecだとletは遅延評価なのでビクッとなる。
 
 ```Scheme
 (let ((<var1> <exp1>)
