@@ -273,7 +273,7 @@ consを使おうが使うまいが、壁があるかぎりmake-ratの動作に�
 (def end (make-point 3 5))
 (def seg (make-segment start end))
 (print-point (midpoint-segment Seg))
-;=> "( 2 , 3 )"
+;=> "( 2 , 4 )"
 ```
 
 問題2.3
