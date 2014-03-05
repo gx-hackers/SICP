@@ -238,6 +238,44 @@ consを使おうが使うまいが、壁があるかぎりmake-ratの動作に�
 問題2.2
 > 平面上の線分を表現せよ。構成子make-segmentと、選択肢start-segment, end-segmentを定義するべし。更に座標(x,y)を定義する構成子make-pointと、選択子x-point, y-pointを規定せよ。最後に、選択子と構成子を使い、引数として線分をとり中間点を返す手続きmidpoint-segmentを定義せよ。
 
+```Clojure
+; 座標の定義
+(defn make-point [x y]
+  (list x y))
+(defn x-point [p]
+  (first p))
+(defn y-point [p]
+  (first (rest p)))
+
+; 線分の定義
+(defn make-segment [start-point end-point]
+  (list start-point end-point))
+(defn start-segment [s]
+  (first s))
+(defn end-segment [s]
+  (first (rest s)))
+
+; 中間点の定義
+(defn average [a b]
+  (/ (+ a b) 2))
+(defn midpoint-segment [s]
+  (let [start (start-segment s)
+        end (end-segment s)]
+    (make-point (average (x-point start) (x-point end))
+                (average (y-point start) (y-point end)))))
+
+; 座標の印字
+(defn print-point [p]
+  (print-str "(" (x-point p) "," (y-point p) ")"))
+
+; 実行
+(def start (make-point 1 3))
+(def end (make-point 3 5))
+(def seg (make-segment start end))
+(print-point (midpoint-segment Seg))
+;=> "( 2 , 3 )"
+```
+
 問題2.3
 > 更に長方形を表現せよ。周囲の長さと面積も求めよ。さらにさらに長方形の別の表現も実装せよし、周長と面積が変更なく求められることを確認せよ。
 
