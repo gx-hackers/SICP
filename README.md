@@ -25,3 +25,7 @@ SICP Reading
 ## #5 2014年2月21日(水)
 ### 1.2.3 ~ 1.3.4
 [https://github.com/gx-hackers/SICP/blob/master/OrderOfGrowth.md](https://github.com/gx-hackers/SICP/blob/master/OrderOfGrowth.md)
+
+## #6 2014年3月5日(水)
+### 2.1.1 ~ 2.1.4
+[https://github.com/gx-hackers/SICP/blob/master/DataAbstraction_1.md](https://github.com/gx-hackers/SICP/blob/master/DataAbstraction_1.md)
