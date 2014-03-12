@@ -117,8 +117,53 @@ appendのように、リストをcdrダウンしつつ、consアップするも�
 
 (append squares odds)
 ```
+2.17と2.18をやったらいいかも。
+
+## リストの写像
+
+```Scheme
+(define (scale-list items factor)
+  (if (null? items)
+  ()
+  (cons (* (car items) factor)
+    (scale-list (cdr items) factor))))
+
+(scale-list (list 1 2 3 4 5) 10)
+```
+
+これを抽象化して高階手続き(手続きを扱う手続き)にするとmap(引数として、1引数の手続きとリストをとり、その手続きをリストの各要素に作用させて出来た結果のリストを返す)
+
+```Scheme
+(define (map proc items)
+  (if (null? items)
+    ()
+    (cons (proc (car items))
+      (map proc (cdr items)))))
+
+(map abs (list -10 2.5 -11.6 17))
+
+(map (lambda (x) (* x x))
+  (list 1 2 3 4))
+```
+
+このmapを使うと、scale-listを別の形で実装できる
+
+```Scheme
+(define (scale-list items factor)
+  (map (lambda (x) (* x factor))
+    items))
+```
+
+mapで共通パターンを取り込んだだけではなく、リストを扱うより高いレベルの抽象化を達成した。
+* scale-listの初めの定義では、再帰的構造のため、リストの要素ごとの処理に注目させた。
+* mapを使った定義では、そのレベルでの細部を押し隠し、係数倍が要素のリストを結果のリストに変換することを強調する。
+二つの定義の違いは、われわれがプロセスを異って考えることにある。
+実際mapは抽象の壁を建て、リストを変換する手続きの実装を、リストの要素をどう取り出し、どう組み合せるかのような細部から隔離する。
 
 
+(cons (list 1 2) (list 3 4))
+
+2.2.1終わり
 
 
 
