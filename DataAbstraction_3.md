@@ -288,10 +288,6 @@ mapの木対応を行う。
 
 Win/Macの環境。
 
-![9aa2DQV30L.gif](https://qiita-image-store.s3.amazonaws.com/0/4194/d248e2c7-e490-b3a2-6a78-ff0fef1dae05.gif "9aa2DQV30L.gif")
-
-[waveソースコード](http://d.hatena.ne.jp/tetsu_miyagawa/20130512/1368350808)
-
 ```Scheme
 #lang racket
 (require (planet "sicp.ss" ("soegaard" "sicp.plt" 2 1)))
@@ -340,10 +336,112 @@ Win/Macの環境。
 (paint wave)
 ```
 
-![wave2.gif](https://qiita-image-store.s3.amazonaws.com/0/4194/3c6063b8-6a1d-917b-5e4e-896271248621.gif "wave2.gif")
+![9aa2DQV30L.gif](https://qiita-image-store.s3.amazonaws.com/0/4194/d248e2c7-e490-b3a2-6a78-ff0fef1dae05.gif "9aa2DQV30L.gif")
+
+[waveソースコード](http://d.hatena.ne.jp/tetsu_miyagawa/20130512/1368350808)
+
+遊んでみる。
+
+使用する手続き。
+
+- `besize` : 受け取った2つのペインタを左、右にわけて表示する
+- `below` : ↑の上下版
+- `flip-vert` : 受け取ったペインタの上下逆さまのペインタを返す
+- `flip-horiz` : 左右逆さまにする
+
+それぞれが、それ自身がペイントだ。
 
 ```
 (define einstein2 (beside einstein (flip-vert einstein)))
 (define einstein4 (below einstein2 einstein2))
+(paint wave2)
+(paint wave4)
 ```
+
+![wave2.gif](https://qiita-image-store.s3.amazonaws.com/0/4194/3c6063b8-6a1d-917b-5e4e-896271248621.gif "wave2.gif")
+
+wave4を抽象化する。
+
+```
+(define (flipped-pairs painter)
+  (let ((painter2 (beside painter (flip-vert painter))))
+    (below painter2 painter2)))
+(define wave4 (flipped-pairs wave)) ; 本ではwave4をインスタンと呼んでいる
+; 確かにwaveを受け取り初期化されたペイントをwave4として定義している
+(paint wave4)
+```
+
+![スクリーンショット 2014-04-06 16.27.47.png](https://qiita-image-store.s3.amazonaws.com/0/4194/8282b6d3-34df-e41f-5cfc-1e960a54c2e2.png "スクリーンショット 2014-04-06 16.27.47.png")
+
+```
+(define (right-split painter n)
+  (if (= n 0)
+      painter
+      (let ((smaller (right-split painter (- n 1))))
+        (beside painter (below smaller smaller)))))
+(define waverp (right-split wave 2))
+(paint waverp)
+```
+
+![スクリーンショット 2014-04-06 16.32.24.png](https://qiita-image-store.s3.amazonaws.com/0/4194/59044cf6-1c73-8ae5-e97c-783480cff402.png "スクリーンショット 2014-04-06 16.32.24.png")
+![スクリーンショット 2014-04-06 16.34.34.png](https://qiita-image-store.s3.amazonaws.com/0/4194/a0523f8a-7bc5-8a2d-56e1-f722e37a2003.png "スクリーンショット 2014-04-06 16.34.34.png")
+
+up-splitも定義してみる。
+
+```
+(define (up-split painter n)
+  (if (= n 0)
+      painter
+      (let ((smaller (up-split painter (- n 1))))
+        (below painter (beside smaller smaller)))))
+(paint (up-split wave 2))
+```
+
+![スクリーンショット 2014-04-06 16.41.29.png](https://qiita-image-store.s3.amazonaws.com/0/4194/c53cd387-b5f1-eb35-aa8f-32f4c6d46f5a.png "スクリーンショット 2014-04-06 16.41.29.png")
+
+```
+(define (corner-split painter n)
+  (if (= n 0)
+      painter
+      (let ((up (up-split painter (- n 1)))
+            (right (right-split painter (- n 1))))
+        (let ((top-left (beside up up))
+              (bottom-right (below right right))
+              (corner (corner-split painter (- n 1))))
+          (beside (below painter top-left)
+                  (below bottom-right corner))))))
+(define wavefp (corner-split wave 10))
+(paint wavefp)
+```
+
+![スクリーンショット 2014-04-06 16.42.12.png](https://qiita-image-store.s3.amazonaws.com/0/4194/73ff6adf-cc47-ab3a-ae29-41f476732496.png "スクリーンショット 2014-04-06 16.42.12.png")
+
+```
+(define (square-limit painter n)
+  (let ((quarter (corner-split painter n)))
+    (let ((half (beside (flip-horiz quarter) quarter)))
+      (below (flip-vert half) half))))
+(paint (square-limit wave 10))
+```
+
+![スクリーンショット 2014-04-06 16.44.17.png](https://qiita-image-store.s3.amazonaws.com/0/4194/fb534fe0-c334-3b4c-f7d0-c60ae2e2650a.png "スクリーンショット 2014-04-06 16.44.17.png")
+
+☆-(ノﾟДﾟ)八(ﾟДﾟ )ノｲｴｰｲ
+ 以下いろんな方法で手続きする方法が続く。
+
+＜略＞
+
+### 堅牢な設計のための言語のレベル
+色々遊んだが
+
+    これは、stratified design(階層化設計)の方法で、複雑なシステムは一連の
+    言語を用いて記述される一連のレベルとして構造化されるべきであるという概念。
+    各レベルはパーツをパーツを接続して構築され、それらは次のレベルではプリミティブとして
+    参照されます。そして各レベルで構築されたパーツは次のレベルにてプリミティブとして
+    使用されます。階層化された設計の各レベルで使用される言語はプリミティブ、
+    接続手段、そしてそのレベルの詳細さに適切な抽象化手段を持っています。
+    階層化設計はプログラムをrobust(堅牢)にすることを手助けします。
+    それはつまりプログラムにおける仕様上の小さな変更が相応した小さな変更を
+    要求することを意味します。一般的に階層設計の各レベル
+    は異なる語彙をシステムの特徴を表すのに提供します。そして異なる種類の変更方法をも提供します。
 
